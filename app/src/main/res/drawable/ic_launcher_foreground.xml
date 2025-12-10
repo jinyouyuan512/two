@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <!-- 背景圆 -->
+    <path android:fillColor="#E3F2FD" android:pathData="M14,54 A40,40 0 1,1 94,54 A40,40 0 1,1 14,54 Z"/>
+    
+    <!-- 人形轮廓 -->
+    <path android:fillColor="#64B5F6" android:pathData="M54,28 C50,28 46,32 46,36 C46,40 50,44 54,44 C58,44 62,40 62,36 C62,32 58,28 54,28 Z"/>
+    <path android:strokeColor="#64B5F6" android:strokeWidth="4" android:strokeLineCap="round" android:pathData="M54,44 L54,60"/>
+    <path android:strokeColor="#64B5F6" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M54,50 L44,42"/>
+    <path android:strokeColor="#64B5F6" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M54,50 L64,42"/>
+    <path android:strokeColor="#64B5F6" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M54,60 L46,70"/>
+    <path android:strokeColor="#64B5F6" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M54,60 L62,70"/>
+    
+    <!-- 心形芯片 -->
+    <path android:fillColor="#FF9800" android:pathData="M54,40 C50,36 46,38 46,42 C46,46 50,48 54,52 C58,48 62,46 62,42 C62,38 58,36 54,40 Z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M51,40 L57,46 L51,46 Z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M51.5,41.5 A0.5,0.5 0 1,1 52.5,41.5 A0.5,0.5 0 1,1 51.5,41.5 Z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M55.5,41.5 A0.5,0.5 0 1,1 56.5,41.5 A0.5,0.5 0 1,1 55.5,41.5 Z"/>
+    
+    <!-- 智能光效点 -->
+    <path android:fillColor="#64B5F6" android:pathData="M27,53 A1,1 0 1,1 29,53 A1,1 0 1,1 27,53 Z"/>
+    <path android:fillColor="#64B5F6" android:pathData="M79,53 A1,1 0 1,1 81,53 A1,1 0 1,1 79,53 Z"/>
+    <path android:fillColor="#64B5F6" android:pathData="M53,27 A1,1 0 1,1 53,29 A1,1 0 1,1 53,27 Z"/>
+    <path android:fillColor="#64B5F6" android:pathData="M53,79 A1,1 0 1,1 53,81 A1,1 0 1,1 53,79 Z"/>
+    <path android:fillColor="#4FC3F7" android:pathData="M37.25,37.25 A0.75,0.75 0 1,1 38.75,37.25 A0.75,0.75 0 1,1 37.25,37.25 Z"/>
+    <path android:fillColor="#4FC3F7" android:pathData="M69.25,69.25 A0.75,0.75 0 1,1 70.75,69.25 A0.75,0.75 0 1,1 69.25,69.25 Z"/>
+    <path android:fillColor="#4FC3F7" android:pathData="M37.25,69.25 A0.75,0.75 0 1,1 38.75,69.25 A0.75,0.75 0 1,1 37.25,69.25 Z"/>
+    <path android:fillColor="#4FC3F7" android:pathData="M69.25,37.25 A0.75,0.75 0 1,1 70.75,37.25 A0.75,0.75 0 1,1 69.25,37.25 Z"/>
+    
+    <!-- 简化的文字 -->
+    <path android:fillColor="#1976D2" android:pathData="M42,85 L48,85 L48,92 L45,92 L45,88 L42,88 Z M50,85 L52,85 L52,92 L55,92 L55,85 L57,85 L57,92 L60,92 L60,85 L62,85 L62,95 L60,95 L60,92 L57,92 L57,95 L55,95 L55,92 L52,92 L52,95 L50,95 Z"/>
+</vector>

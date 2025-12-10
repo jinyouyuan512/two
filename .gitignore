@@ -1,0 +1,17 @@
+local.properties
+*.keystore
+*.jks
+*.pem
+*.env
+/.gradle/
+/.idea/
+*.iml
+/build/
+app/build/
+app/release/
+app/debug/
+*.log
+Thumbs.db
+.DS_Store
+node_modules/
+supabase/.temp/

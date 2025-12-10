@@ -1,0 +1,160 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+}
+
+import java.util.Properties
+import java.io.FileInputStream
+
+def localProps = new Properties()
+def localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    localProps.load(new FileInputStream(localPropsFile))
+}
+def SUPABASE_URL_PROP = localProps.getProperty("SUPABASE_URL", "")
+def SUPABASE_ANON_KEY_PROP = localProps.getProperty("SUPABASE_ANON_KEY", "")
+def AI_FUNCTION_PATH_PROP = localProps.getProperty("AI_FUNCTION_PATH", "ai-health-assistant")
+def AI_MODEL_PROP = localProps.getProperty("AI_MODEL", "gpt-4o-mini")
+def AI_PREFER_EDGE_PROP = localProps.getProperty("AI_PREFER_EDGE", "false")
+def LLM_BASE_URL_PROP = localProps.getProperty("LLM_BASE_URL", "")
+def LLM_API_KEY_PROP = localProps.getProperty("LLM_API_KEY", "")
+def RPA_WEBHOOK_URL_PROP = localProps.getProperty("RPA_WEBHOOK_URL", "")
+def RPA_TOKEN_PROP = localProps.getProperty("RPA_TOKEN", "")
+    def IFLYTEK_API_PASSWORD_PROP = localProps.getProperty("IFLYTEK_API_PASSWORD", "")
+    def IFLYTEK_APP_ID_PROP = localProps.getProperty("IFLYTEK_APP_ID", "")
+    def IFLYTEK_API_KEY_PROP = localProps.getProperty("IFLYTEK_API_KEY", "")
+    def IFLYTEK_API_SECRET_PROP = localProps.getProperty("IFLYTEK_API_SECRET", "")
+    def IFLYTEK_MODEL_DOMAIN_PROP = localProps.getProperty("IFLYTEK_MODEL_DOMAIN", "generalv3.5")
+    def IFLYTEK_WS_HOST_PROP = localProps.getProperty("IFLYTEK_WS_HOST", "spark-api.xf-yun.com")
+    def IFLYTEK_WS_PATH_PROP = localProps.getProperty("IFLYTEK_WS_PATH", "/v3.5/chat")
+    def IFLYTEK_REST_ENDPOINT_PROP = localProps.getProperty("IFLYTEK_REST_ENDPOINT", "https://spark-api-open.xf-yun.com/v1/chat/completions")
+    def DIFY_BASE_URL_PROP = localProps.getProperty("DIFY_BASE_URL", "https://api.dify.ai")
+    def DIFY_API_KEY_PROP = localProps.getProperty("DIFY_API_KEY", "")
+    def DIFY_APP_ID_PROP = localProps.getProperty("DIFY_APP_ID", "")
+    def BAIDU_API_KEY_PROP = localProps.getProperty("BAIDU_API_KEY", "")
+    def BAIDU_SECRET_KEY_PROP = localProps.getProperty("BAIDU_SECRET_KEY", "")
+
+if (SUPABASE_URL_PROP?.startsWith("https\\://")) {
+    SUPABASE_URL_PROP = SUPABASE_URL_PROP.replace("https\\://", "https://")
+}
+
+android {
+    namespace 'com.example.healthapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.healthapp"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+
+        buildConfigField "String", "SUPABASE_URL", '"' + SUPABASE_URL_PROP + '"'
+        buildConfigField "String", "SUPABASE_ANON_KEY", '"' + SUPABASE_ANON_KEY_PROP + '"'
+        buildConfigField "String", "AI_FUNCTION_PATH", '"' + AI_FUNCTION_PATH_PROP + '"'
+        buildConfigField "String", "AI_MODEL", '"' + AI_MODEL_PROP + '"'
+        buildConfigField "boolean", "AI_PREFER_EDGE", AI_PREFER_EDGE_PROP
+        buildConfigField "String", "LLM_BASE_URL", '"' + LLM_BASE_URL_PROP + '"'
+        buildConfigField "String", "LLM_API_KEY", '"' + LLM_API_KEY_PROP + '"'
+        buildConfigField "String", "RPA_WEBHOOK_URL", '"' + RPA_WEBHOOK_URL_PROP + '"'
+        buildConfigField "String", "RPA_TOKEN", '"' + RPA_TOKEN_PROP + '"'
+        buildConfigField "String", "IFLYTEK_API_PASSWORD", '"' + IFLYTEK_API_PASSWORD_PROP + '"'
+        buildConfigField "String", "IFLYTEK_APP_ID", '"' + IFLYTEK_APP_ID_PROP + '"'
+        buildConfigField "String", "IFLYTEK_API_KEY", '"' + IFLYTEK_API_KEY_PROP + '"'
+        buildConfigField "String", "IFLYTEK_API_SECRET", '"' + IFLYTEK_API_SECRET_PROP + '"'
+        buildConfigField "String", "IFLYTEK_MODEL_DOMAIN", '"' + IFLYTEK_MODEL_DOMAIN_PROP + '"'
+        buildConfigField "String", "IFLYTEK_WS_HOST", '"' + IFLYTEK_WS_HOST_PROP + '"'
+        buildConfigField "String", "IFLYTEK_WS_PATH", '"' + IFLYTEK_WS_PATH_PROP + '"'
+        buildConfigField "String", "IFLYTEK_REST_ENDPOINT", '"' + IFLYTEK_REST_ENDPOINT_PROP + '"'
+        buildConfigField "String", "FOOD_FUNCTION_PATH", '"' + (localProps.getProperty("FOOD_FUNCTION_PATH", "food-recognize") ?: "food-recognize") + '"'
+        buildConfigField "String", "DIFY_BASE_URL", '"' + DIFY_BASE_URL_PROP + '"'
+        buildConfigField "String", "DIFY_API_KEY", '"' + DIFY_API_KEY_PROP + '"'
+        buildConfigField "String", "DIFY_APP_ID", '"' + DIFY_APP_ID_PROP + '"'
+        buildConfigField "String", "BAIDU_API_KEY", '"' + BAIDU_API_KEY_PROP + '"'
+        buildConfigField "String", "BAIDU_SECRET_KEY", '"' + BAIDU_SECRET_KEY_PROP + '"'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.8'
+    }
+    kotlinOptions {
+        freeCompilerArgs += ["-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api"]
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation "androidx.compose.ui:ui:1.5.8"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.5.8"
+    implementation 'androidx.compose.material:material:1.5.8'
+    implementation 'androidx.compose.material3:material3:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
+    implementation 'androidx.navigation:navigation-compose:2.7.7'
+    implementation 'androidx.compose.material:material-icons-extended:1.5.8'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    
+    // Chart library
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    
+    // Image loading
+    implementation 'io.coil-kt:coil-compose:2.5.0'
+    
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // DataStore for secure token persistence
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    // Ktor HTTP client for Supabase REST/Functions
+    implementation 'io.ktor:ktor-client-android:2.3.5'
+    implementation 'io.ktor:ktor-client-content-negotiation:2.3.5'
+    implementation 'io.ktor:ktor-serialization-kotlinx-json:2.3.5'
+    implementation 'io.ktor:ktor-client-websockets:2.3.5'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0'
+    
+    // ML Kit OCR and Image Labeling
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
+    implementation 'com.google.mlkit:image-labeling:17.0.7'
+    implementation 'com.google.mlkit:vision-common:17.3.0'
+    
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test:1.9.22'
+    testImplementation 'io.ktor:ktor-client-mock:2.3.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.5.4"
+    debugImplementation "androidx.compose.ui:ui-tooling:1.5.8"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.5.4"
+    implementation "androidx.work:work-runtime-ktx:2.9.0"
+}
