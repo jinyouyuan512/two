@@ -25,6 +25,7 @@ import com.example.healthapp.viewmodel.MetricsViewModel
 import com.example.healthapp.viewmodel.ProfileViewModel
 import com.example.healthapp.viewmodel.DailyTipsViewModel
 
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun HomeScreen(onAiClick: () -> Unit = {}, onRecordClick: () -> Unit = {}, onNewsClick: () -> Unit = {}) {
     val metricsVm: MetricsViewModel = viewModel()
@@ -368,14 +369,14 @@ fun HealthNewsCardSection(
                             Card(colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f)), elevation = CardDefaults.cardElevation(defaultElevation = 0.dp), modifier = Modifier.fillMaxWidth()) {
                                 Column(modifier = Modifier.padding(12.dp)) {
                                     Text(text = line, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                                    if (!item.url.isNullOrBlank()) {
+                                    item.url?.let { url ->
                                         Spacer(modifier = Modifier.height(4.dp))
                                         val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
-                                        Text(text = "`" + item.url + "`", fontSize = 12.sp, color = HealthBlue, modifier = Modifier.clickable { uriHandler.openUri(item.url!!) })
+                                        Text(text = "`" + url + "`", fontSize = 12.sp, color = HealthBlue, modifier = Modifier.clickable { uriHandler.openUri(url) })
                                     }
-                                    if (!item.summary.isNullOrBlank()) {
+                                    item.summary?.let { sum ->
                                         Spacer(modifier = Modifier.height(4.dp))
-                                        Text(text = item.summary!!, fontSize = 12.sp, color = Color.Gray)
+                                        Text(text = sum, fontSize = 12.sp, color = Color.Gray)
                                     }
                                 }
                             }

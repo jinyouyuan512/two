@@ -38,11 +38,12 @@ class AuthViewModel(
         viewModelScope.launch {
             runCatching { repo.login(username, password) }
                 .onSuccess { tokens: AuthTokens? ->
-                    val access = tokens?.accessToken
-                    if (!access.isNullOrBlank()) {
-                        SessionManager.accessToken = access
-                        SessionManager.refreshToken = tokens?.refreshToken
-                        SessionManager.expiresAt = tokens?.expiresIn?.let { System.currentTimeMillis() + it * 1000 }
+                    tokens?.let { t ->
+                        val access = t.accessToken
+                        if (!access.isNullOrBlank()) {
+                            SessionManager.accessToken = access
+                            SessionManager.refreshToken = t.refreshToken
+                            SessionManager.expiresAt = t.expiresIn?.let { System.currentTimeMillis() + it * 1000 }
                         runCatching {
                             repo.getUserId(access)
                         }.onSuccess { uid ->
@@ -53,8 +54,9 @@ class AuthViewModel(
                         onSuccess()
                         isLoggedIn = true
                         isRestoring = false
-                    } else {
-                        errorMessage = "登录失败"
+                        } else {
+                            errorMessage = "登录失败"
+                        }
                     }
                 }
                 .onFailure { errorMessage = it.message }
@@ -76,11 +78,12 @@ class AuthViewModel(
         viewModelScope.launch {
             runCatching { repo.register(username, password, displayName) }
                 .onSuccess { tokens: AuthTokens? ->
-                    val access = tokens?.accessToken
-                    if (!access.isNullOrBlank()) {
-                        SessionManager.accessToken = access
-                        SessionManager.refreshToken = tokens?.refreshToken
-                        SessionManager.expiresAt = tokens?.expiresIn?.let { System.currentTimeMillis() + it * 1000 }
+                    tokens?.let { t ->
+                        val access = t.accessToken
+                        if (!access.isNullOrBlank()) {
+                            SessionManager.accessToken = access
+                            SessionManager.refreshToken = t.refreshToken
+                            SessionManager.expiresAt = t.expiresIn?.let { System.currentTimeMillis() + it * 1000 }
                         runCatching {
                             repo.getUserId(access)
                         }.onSuccess { uid ->
@@ -91,8 +94,9 @@ class AuthViewModel(
                         isLoggedIn = true
                         onSuccess()
                         isRestoring = false
-                    } else {
-                        errorMessage = "注册成功，请前往邮箱验证后登录"
+                        } else {
+                            errorMessage = "注册成功，请前往邮箱验证后登录"
+                        }
                     }
                 }
                 .onFailure { errorMessage = it.message }
@@ -116,12 +120,14 @@ class AuthViewModel(
             if (expired && !refresh.isNullOrBlank()) {
                 runCatching { repo.refresh(refresh) }
                     .onSuccess { tokens: AuthTokens? ->
-                        val newAccess = tokens?.accessToken
-                        if (!newAccess.isNullOrBlank()) {
-                            SessionManager.accessToken = newAccess
-                            SessionManager.refreshToken = tokens?.refreshToken
-                            SessionManager.expiresAt = tokens?.expiresIn?.let { System.currentTimeMillis() + it * 1000 }
-                            TokenStore.save(context, SessionManager.accessToken, SessionManager.refreshToken, SessionManager.expiresAt)
+                        tokens?.let { t ->
+                            val newAccess = t.accessToken
+                            if (!newAccess.isNullOrBlank()) {
+                                SessionManager.accessToken = newAccess
+                                SessionManager.refreshToken = t.refreshToken
+                                SessionManager.expiresAt = t.expiresIn?.let { System.currentTimeMillis() + it * 1000 }
+                                TokenStore.save(context, SessionManager.accessToken, SessionManager.refreshToken, SessionManager.expiresAt)
+                            }
                         }
                     }
             }

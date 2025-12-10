@@ -13,6 +13,7 @@ import java.util.UUID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+@Suppress("UNUSED_PARAMETER")
 class AIChatRepository(
     private val api: AIChatApi = AIChatApi(),
     private val sparkApi: SparkApi = SparkApi(),
@@ -23,6 +24,7 @@ class AIChatRepository(
 
     private var conversationId: String? = null
 
+    @Suppress("UNUSED_PARAMETER")
     suspend fun sendMessage(
         history: List<AIChatMessage>,
         input: String,

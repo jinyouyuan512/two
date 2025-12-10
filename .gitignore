@@ -4,6 +4,9 @@ local.properties
 *.pem
 *.env
 /.gradle/
+.gradle/
+**/build/
+*.sqlite
 /.idea/
 *.iml
 /build/

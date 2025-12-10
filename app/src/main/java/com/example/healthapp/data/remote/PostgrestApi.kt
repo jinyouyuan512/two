@@ -210,7 +210,8 @@ class PostgrestApi(private val provider: SupabaseClientProvider = SupabaseClient
 
         val groups = mutableMapOf<String, MutableList<DailyNewsRow>>()
         for (row in all) {
-            val keyPart = if (!row.url.isNullOrBlank()) "url:" + row.url!!.trim() else "ts:" + row.news_date + "|" + row.title.trim() + "|" + ((row.source ?: "").trim())
+            val urlVal = row.url
+            val keyPart = if (!urlVal.isNullOrBlank()) "url:" + urlVal.trim() else "ts:" + row.news_date + "|" + row.title.trim() + "|" + ((row.source ?: "").trim())
             groups.getOrPut(keyPart) { mutableListOf() }.add(row)
         }
         val toDelete = mutableListOf<String>()
