@@ -34,6 +34,7 @@ def RPA_TOKEN_PROP = localProps.getProperty("RPA_TOKEN", "")
     def DIFY_APP_ID_PROP = localProps.getProperty("DIFY_APP_ID", "")
     def BAIDU_API_KEY_PROP = localProps.getProperty("BAIDU_API_KEY", "")
     def BAIDU_SECRET_KEY_PROP = localProps.getProperty("BAIDU_SECRET_KEY", "")
+    def BAIDU_APP_ID_PROP = localProps.getProperty("BAIDU_APP_ID", "")
 
 if (SUPABASE_URL_PROP?.startsWith("https\\://")) {
     SUPABASE_URL_PROP = SUPABASE_URL_PROP.replace("https\\://", "https://")
@@ -73,6 +74,7 @@ android {
         buildConfigField "String", "DIFY_APP_ID", '"' + DIFY_APP_ID_PROP + '"'
         buildConfigField "String", "BAIDU_API_KEY", '"' + BAIDU_API_KEY_PROP + '"'
         buildConfigField "String", "BAIDU_SECRET_KEY", '"' + BAIDU_SECRET_KEY_PROP + '"'
+        buildConfigField "String", "BAIDU_APP_ID", '"' + BAIDU_APP_ID_PROP + '"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

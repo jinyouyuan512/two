@@ -57,7 +57,17 @@ fun HomeScreen(onAiClick: () -> Unit = {}, onRecordClick: () -> Unit = {}, onNew
         item { DailyTipSection(dailyTipsVm) }
         item {
             val news by newsVm.news.collectAsState()
-            HealthNewsCardSection(news, onNewsClick, onRefresh = { newsVm.load(10) })
+            val filtered = remember(news) {
+                fun parseTs(s: String?): Long {
+                    return runCatching { java.time.OffsetDateTime.parse(s ?: "") }.getOrNull()?.toInstant()?.toEpochMilli()
+                        ?: runCatching { java.time.OffsetDateTime.parse("1970-01-01T00:00:00Z") }.getOrNull()?.toInstant()?.toEpochMilli() ?: 0L
+                }
+                news
+                    .distinctBy { it.title.trim() }
+                    .sortedByDescending { parseTs(it.published_at ?: it.created_at) }
+                    .take(2)
+            }
+            HealthNewsCardSection(filtered, onNewsClick, onRefresh = { newsVm.load(10) })
         }
         // item { WeeklyTrendsSection(metricsVm) } // Removed as requested
     }
@@ -363,7 +373,7 @@ fun HealthNewsCardSection(
                         OutlinedButton(onClick = onRefresh, colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)) { Text("刷新") }
                     } else {
                         var index = 1
-                        news.take(2).forEach { item ->
+                        news.forEach { item ->
                             val timeStr = item.published_at ?: item.created_at
                             val line = "${index}. ${item.title} 来源：${item.source ?: "未知"} | 时间：${timeStr}"
                             Card(colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f)), elevation = CardDefaults.cardElevation(defaultElevation = 0.dp), modifier = Modifier.fillMaxWidth()) {
